@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "356257617675",
+    "project_id": "newzap-edcc3",
+    "storage_bucket": "newzap-edcc3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:356257617675:android:1d5d969a34f31689cf340e",
+        "android_client_info": {
+          "package_name": "com.example.newsapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvXfZ-FU4Q0cDQpx7GBNBXzCBv07vFj2w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
