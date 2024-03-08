@@ -22,11 +22,11 @@ class NewTileWidget extends StatelessWidget {
           SizedBox(
               height: height*0.35,
               width: width,
-              child: Image.network(imagePath,fit: BoxFit.cover,)),
+              child: Image.network(imagePath,fit: BoxFit.contain,)),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 5),
             child: Text(newsTitle,style: const TextStyle(
-              fontSize: newTitleFontSize,fontWeight: FontWeight.bold
+                fontSize: newTitleFontSize,fontWeight: FontWeight.bold
             ),),
           ),
           Padding(
@@ -39,7 +39,7 @@ class NewTileWidget extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomRight,
               child: ElevatedButton(onPressed: onPressed, child: const Text("Read More",style: TextStyle(
-                color: buttonTextColor
+                  color: buttonTextColor
               ),),style: ElevatedButton.styleFrom(backgroundColor: buttonColor,
               ),),
             ),

@@ -1,11 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:newsapp/firebase_options.dart';
-import 'package:newsapp/view/auth/login_page.dart';
 import 'package:newsapp/view/auth/sign_in_page.dart';
 import 'package:newsapp/view/const/const.dart';
+import 'package:newsapp/view/splash_screen.dart';
 
 Future<void> main() async {
+  await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform
@@ -17,7 +19,6 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: backgroundColor),
         useMaterial3: true,
       ),
-      home:  SignInPage(),
+      home:  SplashScreen(),
     );
   }
 }
