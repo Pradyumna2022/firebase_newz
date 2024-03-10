@@ -4,9 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:newsapp/view/widgets/toast_message.dart';
+import 'package:video_player/video_player.dart';
 
 import '../const/const.dart';
 import '../home_page.dart';
+import '../widgets/my_text_field.dart';
 import 'login_page.dart';
 
 class SignInPage extends StatefulWidget {
@@ -22,55 +24,55 @@ class _SignInPageState extends State<SignInPage> {
   final _formKey = GlobalKey<FormState>();
 
   FirebaseAuth _auth = FirebaseAuth.instance;
+
+  @override
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Form(
+      body: Stack(
+        alignment: Alignment.center,
+        children:[
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment(0.8, 1),
+                colors: <Color>[
+                  Color(0xff1f005c),
+                  Color(0xff5b0060),
+                  Color(0xff870160),
+                  Color(0xffac255e),
+                  Color(0xffca485c),
+                  Color(0xffe16b5c),
+                  Color(0xfff39060),
+                  Color(0xffffb56b),
+                ],
+                tileMode: TileMode.mirror,
+              ),
+            ),
+          ),
+          Form(
           key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SingleChildScrollView(
+          child: SingleChildScrollView(
+            child:
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 42.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 28.0),
                     child: Text("Welcome to News App",style: TextStyle(
-                      fontSize: 25,fontWeight: FontWeight.bold,color: backgroundColor
+                        fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white
                     ),),
                   ),
                   // email field
-                  TextFormField(
-                    controller: emailController,
-                    validator: (value){
-                      if(value!.isEmpty){
-                        return 'Email Must';
-                      }
-                    },
-                    decoration: InputDecoration(
-                        hintText: 'Email',
-                        focusedBorder: OutlineInputBorder(),
-                        errorBorder: OutlineInputBorder(),
-                        enabledBorder: OutlineInputBorder(),
-                        focusedErrorBorder: OutlineInputBorder()
-                    ),
+                  MyTextField(
+                    controller:emailController, validationText: 'Email Must', hintText: 'Email',
                   ),
                   SizedBox(height: 10,),
-                  TextFormField(
-                    controller: passwordController,
-                    validator: (value){
-                      if(value!.isEmpty){
-                        return 'Password Must';
-                      }
-                    },
-                    decoration: InputDecoration(
-                        hintText: 'Password',
-                        focusedBorder: OutlineInputBorder(),
-                        focusedErrorBorder: OutlineInputBorder(),
-                        errorBorder: OutlineInputBorder(),
-                        enabledBorder: OutlineInputBorder()
-                    ),
+                  MyTextField(
+                    controller:passwordController, validationText: 'Password Must', hintText: 'Password',
                   ),
                   SizedBox(height: 20,),
                   SizedBox(
@@ -80,7 +82,7 @@ class _SignInPageState extends State<SignInPage> {
                         print("Good Job Sign in !");
                         final box = GetStorage();
                         _auth.createUserWithEmailAndPassword(email: emailController.text.toString(), password: passwordController.text.toString())
-                        .then((value){
+                            .then((value){
                           Utils().toastMessage(value.user!.email.toString() + '  Congratulation');
                           box.write('emailKey', emailController.text.toString());
                           print(box.read('emailKey' + "This SI KEY O 777777777777777777"));
@@ -90,7 +92,8 @@ class _SignInPageState extends State<SignInPage> {
                             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomePage()), (route) => false);
                           });
                           print(value.user!.email.toString());
-                          
+
+
                         }).onError((error, stackTrace) {
                           Utils().toastMessage(error.toString());
                         });
@@ -104,13 +107,13 @@ class _SignInPageState extends State<SignInPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text('Already have an account'),
+                      Text('Already have an account',style: TextStyle(color: Colors.white54,fontWeight: FontWeight.bold,fontSize: 15)),
                       SizedBox(width: 5,),
                       GestureDetector(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage()));
+                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LoginPage()), (route) => false);
                           },
-                          child: Text("Login",style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold,fontSize: 15),))
+                          child: Text("Login",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 15),))
                     ],
                   )
                 ],
@@ -118,6 +121,7 @@ class _SignInPageState extends State<SignInPage> {
             ),
           ),
         ),
+      ]
       ),
     );
   }
